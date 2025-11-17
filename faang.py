@@ -1,4 +1,4 @@
-
+#! /usr/bin/env python
 
 # Date and time handling
 import datetime as dt
