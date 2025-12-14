@@ -1,0 +1,50 @@
+# Adaptedfrom ChatGPT
+# https://chatgpt.com/s/t_693ed8d2fa2881918d0d7984f222a150
+
+name: Run faang.yml script on schedule
+
+on:
+  schedule:
+    # From: https://crontab.guru/#3_6_*_*_6
+    # Runs every Saturday at 06:03 UTC
+    - cron: "3 6 * * 6"
+  # allows manual runs too
+  workflow_dispatch:  
+
+permissions:
+  # Required to commit & push changes
+  contents: write   
+
+jobs:
+  run-faang:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run faang.py
+        run: |
+          python faang.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .
+          git diff --cached --quiet || git commit -m "Automated update from faang.py"
+
+      - name: Push changes
+        run: |
+          git push
