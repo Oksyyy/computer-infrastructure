@@ -17,5 +17,7 @@ All packages are imported and explained in the Notebook. Quick overview:
 
 ## Project Structure
 - **README.md** - Project overview and setup instructions.
-- **problems.ipynb** - Jupyter notebook containing the project work.
 - **requirements.txt** - List of requirements.
+- **problems.ipynb** - Jupyter notebook containing the project work.
+- **faang.py** - Python script that downloads FAANG stock data and generates the plot.
+- **.github/workflows/faang.yml** - GitHub Actions workflow to automate running `faang.py` every Saturday morning.
